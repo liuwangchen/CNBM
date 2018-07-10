@@ -52,7 +52,7 @@ func (mem *Mem) serve(f Func) {
 			cache[req.key] = e
 			go e.call(f, req.key)
 		}
-		go e.delive(req.responseChan)
+		go e.deliver(req.responseChan)
 	}
 }
 
@@ -61,7 +61,7 @@ func (e *entry) call(f Func, key string) {
 	close(e.ready)
 }
 
-func (e *entry) delive(responseChan chan<- result) {
+func (e *entry) deliver(responseChan chan<- result) {
 	<-e.ready
 	responseChan <- e.res
 }
